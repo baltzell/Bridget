@@ -1,0 +1,19 @@
+Bridget
+
+A contract bridge game for 1-player.
+Written by Nathan Baltzell in Spring of 2010.
+Requires pygame, which requires SDL.
+Tested on linux and osx.
+
+WARNING:
+It is basically complete as far as the infrastructure, 
+gameplay, and score keeping, BUT one very important part
+is undone:  WRITE THE AI!!!
+
+
+Keys:
+i -- show hand info
+b -- show bidding
+s -- show full score table
+h -- show help screen
+
