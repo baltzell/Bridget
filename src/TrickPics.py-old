@@ -1,0 +1,58 @@
+import pygame
+from Globals import GLOBALS
+class TrickPic():
+    def __init__(self,screen,pos,small=False):
+        self.pos=pos
+        self.small=small
+        self.cardrect=GLOBALS.deck.backimage.get_rect()
+        self.smallcardrect=GLOBALS.deck.smallimages[0].get_rect()
+        self.bgcolor=GLOBALS.colors['tableshaded']
+        width=self.cardrect.width*2+10
+        height=self.cardrect.height*5/3+10
+        if self.small:
+            width=self.smallcardrect.width*2+10
+            height=self.smallcardrect.height*5/3+10
+        self.surf=pygame.Surface((width,height),1).convert()
+        self.rect=self.surf.get_rect()
+    def clear(self,screen):
+        self.surf.fill(self.bgcolor)
+        screen.blit(self.surf,self.pos)
+    def draw(self,screen,trick):
+        if trick==None:
+            return
+        self.clear(screen)
+        if self.small:
+            cr=self.smallcardrect
+        else:
+            cr=self.cardrect
+        #x0=self.surf.get_rect().centerx
+        #y0=self.surf.get_rect().centery
+        x=[0,cr.width/2,0,-cr.width/2]
+        y=[cr.height/3,0,-cr.height/3,0]
+        for icard in range(len(trick.cards)):
+            ipos=(icard+trick.leadseat)%GLOBALS.deck.nseats
+            cr.center=(self.rect.centerx+x[ipos],self.rect.centery-y[ipos])
+            trick.cards[icard].faceUp()
+            if self.small:
+                trick.cards[icard].drawFaceUpSmall(self.surf,cr.topleft)
+            else:
+                trick.cards[icard].draw(self.surf,cr.topleft)
+        screen.blit(self.surf,self.pos)
+class TrickPics():
+    def __init__(self,screen):
+        self.current=TrickPic(screen,(0,0))
+        screct=screen.get_rect()
+        x=screct.centerx-self.current.rect.width/2
+        y=screct.centery-self.current.rect.height/2
+        self.current.pos=(x,y)
+        self.previous=TrickPic(screen,(0,0),True)
+        x=screct.right-self.previous.rect.width
+        y=screct.top
+        self.previous.pos=(x,y)
+    def clear(self,screen):
+        self.current.clear(screen)
+        self.previous.clear(screen)
+    def draw(self,screen,current,previous):
+        self.current.draw(screen,current)
+        self.previous.draw(screen,previous)
+

@@ -1,0 +1,36 @@
+
+
+
+critical:
+
+  WRITE AI (montecarlo?)
+
+  pass out --> crashes on deal.contract.owner (simple)
+
+  after hand:
+    update score from trickcount,contract,vulnerability (done?)
+    rotate dealer (done?)
+
+
+
+important:
+  pause between tricks before current trick becomes previous
+
+
+organizational:
+  get rid of Table, merge it into Bridget
+
+
+
+niceties:
+
+  get rid of pic arrows in between hands
+
+  discolor invalid bids in biddingbox
+  
+  implement history undo (ctrl-z) with CardGroup.playedCards
+  similarly, show card play history
+
+
+
+
